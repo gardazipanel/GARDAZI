@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GARDAZI – Pakistan's #1 SMM Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  /* ═══════════════════════════════════════════════════════════
+     📧 EMAILJS SETUP — connect YOUR mailbox here
+     1. Create a free account at https://www.emailjs.com
+     2. Add an Email Service (Gmail/Outlook) → copy its SERVICE ID
+     3. Create an Email Template → copy its TEMPLATE ID
+     4. Copy your PUBLIC KEY from Account → General
+     5. Paste all three values below, replacing the placeholders.
+     ═══════════════════════════════════════════════════════════ */
+  (function(){
+    emailjs.init("81X2Gqlg4ERawQj4O");
+  })();
+</script>
+<style>
+  :root {
+    --accent: #7c3aed;
+    --accent2: #a855f7;
+    --accent-glow: rgba(124,58,237,0.35);
+    --accent-ultra: rgba(124,58,237,0.08);
+    --accent-dim: #5b21b6;
+    --bg: #07071a;
+    --bg2: #0d0d28;
+    --bg3: #111133;
+    --bg4: #0a0a22;
+    --surface: rgba(255,255,255,0.04);
+    --surface2: rgba(255,255,255,0.07);
+    --border: rgba(124,58,237,0.18);
+    --border-bright: rgba(168,85,247,0.5);
+    --white: #f0eeff;
+    --muted: #8b8aac;
+    --muted2: #5c5b7a;
+    --shadow: rgba(0,0,0,0.4);
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* Cosmic noise overlay */
+  body::before {
+    content:'';
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.03;
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+  .page { display:none; min-height:100vh; position:relative; z-index:1; }
+  .page.active { display:block; }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:1000;
+    background: rgba(7,7,26,0.85);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2.5rem;
+    height: 70px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--white);
+    display: flex; align-items: center; gap: .6rem;
+    cursor: pointer;
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--accent2); }
+  .nav-logo .logo-dot {
+    width: 8px; height: 8px; border-radius:50%;
+    background: var(--accent2);
+    box-shadow: 0 0 12px var(--accent2);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(168,85,247,0.6); }
+    50% { box-shadow: 0 0 0 8px transparent; }
+  }
+  .nav-links { display:flex; gap:2rem; align-items:center; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: .875rem;
+    letter-spacing: .5px;
+    transition: color .2s;
+    cursor: pointer;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-actions { display:flex; gap:.75rem; align-items:center; }
+  .btn-nav {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: .45rem 1.2rem;
+    font-family: var(--font-body);
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all .2s;
+  }
+  .btn-nav:hover { border-color: var(--accent2); color: var(--white); background: var(--accent-ultra); }
+  .cart-btn {
+    position:relative; cursor:pointer;
+    background: var(--accent);
+    border:none;
+    color:#fff;
+    padding: .45rem 1.2rem;
+    font-family: var(--font-body);
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+    border-radius: 6px;
+    transition: all .2s;
+    box-shadow: 0 0 20px rgba(124,58,237,0.3);
+  }
+  .cart-btn:hover { background: var(--accent-dim); box-shadow: 0 0 30px rgba(124,58,237,0.5); }
+  .cart-count {
+    position:absolute; top:-8px; right:-8px;
+    background: var(--accent2); color: #fff;
+    width:20px; height:20px; border-radius:50%;
+    font-size:.6rem; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-mono);
+  }
+  .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+  .hamburger span { width:24px; height:2px; background:var(--accent2); display:block; transition:.3s; border-radius:2px; }
+
+  /* ─── HERO ─── */
+  #hero-canvas {
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    z-index:0;
+  }
+  .hero {
+    position:relative; min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden; padding-top:70px;
+    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(124,58,237,0.25) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168,85,247,0.1) 0%, transparent 60%),
+                var(--bg);
+  }
+  .hero-grid {
+    position:absolute; inset:0; z-index:1;
+    background-image:
+      linear-gradient(rgba(124,58,237,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,58,237,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridScroll 25s linear infinite;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+  @keyframes gridScroll { 0%{background-position:0 0;} 100%{background-position:60px 60px;} }
+  .hero-content {
+    position:relative; z-index:2;
+    text-align:center; padding:2rem;
+    max-width:960px;
+  }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:.5rem;
+    background: rgba(124,58,237,0.1);
+    border: 1px solid rgba(124,58,237,0.3);
+    color: var(--accent2);
+    font-family: var(--font-mono);
+    font-size:.7rem;
+    letter-spacing:2px;
+    padding:.45rem 1.4rem;
+    margin-bottom:2rem;
+    border-radius: 100px;
+    animation: fadeInDown .8s ease forwards;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight:800;
+    line-height:.95;
+    margin-bottom:1.5rem;
+    animation: fadeInUp .8s .2s ease both;
+    letter-spacing: -2px;
+  }
+  .hero-title .line1 { display:block; color: var(--white); }
+  .hero-title .line2 {
+    display:block;
+    background: linear-gradient(135deg, #a855f7 0%, #7c3aed 50%, #c084fc 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 40px rgba(168,85,247,0.4));
+  }
+  .hero-sub {
+    font-size:1.1rem;
+    color: var(--muted);
+    margin-bottom:3rem;
+    line-height:1.8;
+    animation: fadeInUp .8s .4s ease both;
+    font-weight:400;
+  }
+  .hero-sub strong { color: var(--accent2); font-weight:600; }
+  .hero-btns {
+    display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;
+    animation: fadeInUp .8s .6s ease both;
+  }
+  .btn-primary {
+    background: var(--accent);
+    border: none; color:#fff;
+    padding: .9rem 2.2rem;
+    font-family: var(--font-body);
+    font-size:.9rem; font-weight:700; letter-spacing:.5px;
+    cursor:pointer;
+    border-radius: 8px;
+    transition: all .3s;
+    position:relative; overflow:hidden;
+    box-shadow: 0 0 30px rgba(124,58,237,0.4);
+  }
+  .btn-primary::before {
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+    opacity:0; transition:.3s;
+  }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 40px rgba(124,58,237,0.6); }
+  .btn-primary:hover::before { opacity:1; }
+  .btn-outline {
+    background:transparent;
+    border:1px solid var(--border-bright); color:var(--accent2);
+    padding: .9rem 2.2rem;
+    font-family: var(--font-body);
+    font-size:.9rem; font-weight:700; letter-spacing:.5px;
+    cursor:pointer;
+    border-radius: 8px;
+    transition:all .3s;
+  }
+  .btn-outline:hover { background:var(--accent-ultra); border-color:var(--accent2); transform:translateY(-2px); }
+
+  .hero-stats {
+    position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%);
+    display:flex; gap:3rem; z-index:2;
+    animation: fadeInUp .8s .8s ease both;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: .8rem 2.5rem;
+    backdrop-filter: blur(10px);
+  }
+  .stat { text-align:center; }
+  .stat-num {
+    font-family: var(--font-display); font-size:1.5rem; font-weight:800;
+    color: var(--accent2);
+    text-shadow: 0 0 20px rgba(168,85,247,0.5);
+    letter-spacing: -1px;
+  }
+  .stat-label { font-size:.7rem; color:var(--muted2); letter-spacing:1.5px; text-transform:uppercase; font-family:var(--font-mono); }
+
+  /* HIGHLIGHT BANNER */
+  .highlight-banner {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%);
+    padding: .9rem 2rem;
+    text-align:center;
+    font-family: var(--font-mono);
+    font-size:.8rem;
+    letter-spacing:2px;
+    position:relative; overflow:hidden;
+  }
+  .highlight-banner::before {
+    content:''; position:absolute; inset:0;
+    background:repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,.04) 40px, rgba(255,255,255,.04) 41px);
+  }
+  .highlight-banner span { position:relative; z-index:1; color:#fff; }
+  .blink { animation: blink 1.2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 6rem 2rem; }
+  .section-header { text-align:center; margin-bottom:4rem; }
+  .section-tag {
+    display:inline-block;
+    font-family: var(--font-mono);
+    font-size:.65rem;
+    color: var(--accent2);
+    letter-spacing:4px;
+    text-transform:uppercase;
+    margin-bottom:1rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-weight:800;
+    line-height:1.05;
+    margin-bottom:1rem;
+    letter-spacing: -1px;
+  }
+  .section-title .accent {
+    background: linear-gradient(135deg, #a855f7, #7c3aed);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .section-desc { color:var(--muted); font-size:.95rem; max-width:480px; margin:0 auto; line-height:1.7; }
+
+  /* ─── TILT CARDS ─── */
+  .tilt-card { transform-style: preserve-3d; transition: transform .1s; }
+
+  /* ─── SERVICE CARDS ─── */
+  .services-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap:1.25rem;
+    max-width:1200px; margin:0 auto;
+  }
+  .service-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    padding:2rem;
+    position:relative;
+    overflow:hidden;
+    transition: all .3s;
+    cursor:default;
+    border-radius: 12px;
+  }
+  .service-card::before {
+    content:''; position:absolute; top:0; left:0;
+    width:100%; height:2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), transparent);
+    transform: scaleX(0); transform-origin:left;
+    transition:.3s;
+  }
+  .service-card:hover { border-color: var(--border-bright); transform:translateY(-6px); box-shadow:0 20px 60px rgba(124,58,237,.2); }
+  .service-card:hover::before { transform:scaleX(1); }
+  .card-glow {
+    position:absolute; top:-60%; right:-60%;
+    width:200%; height:200%;
+    background: radial-gradient(circle at center, rgba(124,58,237,0.08) 0%, transparent 60%);
+    opacity:0; transition:.3s;
+    pointer-events:none;
+  }
+  .service-card:hover .card-glow { opacity:1; }
+  .card-tag {
+    font-family: var(--font-mono);
+    font-size:.6rem; color:var(--accent2);
+    letter-spacing:3px; text-transform:uppercase;
+    margin-bottom:.8rem; display:block;
+  }
+  .card-name {
+    font-family: var(--font-display);
+    font-size:1.2rem; font-weight:700;
+    margin-bottom:.5rem; color:var(--white);
+    letter-spacing: -.3px;
+  }
+  .card-desc { color:var(--muted); font-size:.875rem; margin-bottom:1.5rem; line-height:1.65; }
+  .card-includes { margin-bottom:1.5rem; }
+  .card-includes li {
+    list-style:none; color:var(--muted); font-size:.85rem;
+    padding:.3rem 0; display:flex; align-items:center; gap:.6rem;
+  }
+  .card-includes li::before { content:'◆'; color:var(--accent2); font-size:.4rem; }
+  .card-price {
+    display:flex; align-items:baseline; gap:.5rem; margin-bottom:1.5rem;
+  }
+  .price-val {
+    font-family: var(--font-display);
+    font-size:2rem; font-weight:800; color:var(--white);
+    letter-spacing:-1px;
+  }
+  .price-unit { color:var(--muted2); font-size:.85rem; font-family:var(--font-mono); }
+  .old-price { color:var(--muted2); font-size:.8rem; text-decoration:line-through; }
+  .delivery-badge {
+    display:inline-block;
+    background:rgba(168,85,247,0.1); border:1px solid rgba(168,85,247,0.2);
+    color:var(--accent2); font-family:var(--font-mono);
+    font-size:.6rem; letter-spacing:2px;
+    padding:.25rem .8rem; margin-bottom:1rem; border-radius:4px;
+  }
+  .btn-card {
+    width:100%; background: linear-gradient(135deg, var(--accent), var(--accent-dim)); border:none; color:#fff;
+    padding:.85rem; font-family:var(--font-body);
+    font-size:.85rem; font-weight:700; letter-spacing:.5px;
+    cursor:pointer; transition:all .3s;
+    border-radius:7px;
+    box-shadow: 0 4px 20px rgba(124,58,237,0.3);
+  }
+  .btn-card:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(124,58,237,0.5); }
+  .btn-card-outline {
+    width:100%; background:transparent;
+    border:1px solid var(--border-bright); color:var(--accent2);
+    padding:.85rem; font-family:var(--font-body);
+    font-size:.85rem; font-weight:700; letter-spacing:.5px;
+    cursor:pointer; transition:all .3s; border-radius:7px;
+  }
+  .btn-card-outline:hover { background:var(--accent-ultra); }
+  .popular-badge {
+    position:absolute; top:1rem; right:1rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2)); color:#fff;
+    font-family:var(--font-mono); font-size:.6rem;
+    letter-spacing:2px; padding:.3rem .7rem; border-radius:4px;
+  }
+
+  /* ─── PACKAGES GRID ─── */
+  .packages-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap:1.25rem;
+    max-width:1200px; margin:0 auto;
+  }
+  .pkg-card {
+    background: var(--surface);
+    border:1px solid var(--border);
+    backdrop-filter: blur(10px);
+    padding:2rem;
+    position:relative; overflow:hidden;
+    transition:all .3s; border-radius:12px;
+  }
+  .pkg-card.featured { border-color:rgba(168,85,247,0.4); box-shadow:0 0 40px rgba(124,58,237,0.12); }
+  .pkg-card:hover { transform:translateY(-8px); box-shadow:0 30px 70px rgba(124,58,237,.18); border-color:var(--border-bright); }
+  .pkg-card::after {
+    content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+    background:linear-gradient(90deg, transparent, var(--accent2), transparent);
+    opacity:0; transition:.3s;
+  }
+  .pkg-card:hover::after { opacity:1; }
+
+  /* FEATURES */
+  .features-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+    gap:1.25rem;
+    max-width:1100px; margin:0 auto;
+  }
+  .feature-item {
+    background:var(--surface);
+    border:1px solid var(--border);
+    padding:2rem;
+    text-align:center; position:relative;
+    transition:all .3s; border-radius:12px;
+  }
+  .feature-item:hover { border-color:var(--border-bright); box-shadow:0 8px 40px rgba(124,58,237,.12); transform:translateY(-4px); }
+  .feature-icon {
+    width:56px; height:56px; margin:0 auto 1.2rem;
+    background:rgba(124,58,237,0.1);
+    border:1px solid rgba(124,58,237,0.25);
+    border-radius: 12px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem;
+  }
+  .feature-name {
+    font-family:var(--font-display); font-size:1rem;
+    font-weight:700; margin-bottom:.5rem; color:var(--white); letter-spacing:-.2px;
+  }
+  .feature-desc { color:var(--muted); font-size:.85rem; line-height:1.65; }
+
+  /* PLATFORMS */
+  .platforms-row {
+    display:flex; flex-wrap:wrap; justify-content:center;
+    gap:1rem; max-width:900px; margin:0 auto;
+  }
+  .platform-item {
+    display:flex; flex-direction:column; align-items:center; gap:.5rem;
+    cursor:pointer; transition:all .3s; padding:1.2rem 1.8rem;
+    border:1px solid var(--border);
+    background:var(--surface);
+    min-width:100px; border-radius:10px;
+  }
+  .platform-item:hover { border-color:var(--accent2); transform:translateY(-4px); background:var(--accent-ultra); }
+  .platform-icon { font-size:2rem; }
+  .platform-name { font-family:var(--font-mono); font-size:.6rem; letter-spacing:2px; color:var(--muted2); }
+
+  /* ─── CART PAGE ─── */
+  .page-wrapper { max-width:1100px; margin:0 auto; padding:100px 2rem 4rem; }
+  .page-title {
+    font-family:var(--font-display); font-size:2.8rem; font-weight:800;
+    margin-bottom:.5rem; color:var(--white); letter-spacing:-1.5px;
+  }
+  .page-title span { 
+    background: linear-gradient(135deg, #a855f7, #7c3aed);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .page-subtitle { color:var(--muted2); margin-bottom:3rem; font-size:.8rem; letter-spacing:2px; font-family:var(--font-mono); }
+  .cart-table {
+    width:100%; border-collapse:collapse; margin-bottom:2rem;
+  }
+  .cart-table th {
+    font-family:var(--font-mono); font-size:.65rem;
+    letter-spacing:2px; text-transform:uppercase;
+    color:var(--accent2); padding:1rem; text-align:left;
+    border-bottom:1px solid var(--border);
+  }
+  .cart-table td {
+    padding:1rem; border-bottom:1px solid rgba(255,255,255,.04);
+    color:var(--muted); font-size:.9rem; vertical-align:middle;
+  }
+  .cart-table tr:hover td { background:rgba(255,255,255,.02); }
+  .qty-ctrl { display:flex; align-items:center; gap:.5rem; }
+  .qty-btn {
+    width:28px; height:28px; background:var(--bg3);
+    border:1px solid var(--border); color:var(--white);
+    cursor:pointer; font-size:.9rem;
+    display:flex; align-items:center; justify-content:center;
+    transition:.2s; border-radius:5px;
+  }
+  .qty-btn:hover { background:var(--accent); border-color:var(--accent); }
+  .qty-num { font-family:var(--font-mono); min-width:30px; text-align:center; color:var(--white); }
+  .remove-btn {
+    background:transparent; border:1px solid rgba(124,58,237,.3);
+    color:var(--accent2); padding:.3rem .7rem;
+    cursor:pointer; font-size:.7rem; border-radius:4px;
+    transition:.2s; font-family:var(--font-mono);
+  }
+  .remove-btn:hover { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .cart-total {
+    background:var(--surface2); border:1px solid var(--border);
+    padding:2rem; max-width:420px; margin-left:auto; border-radius:12px;
+  }
+  .total-row { display:flex; justify-content:space-between; margin-bottom:.8rem; color:var(--muted); font-size:.9rem; }
+  .total-row.grand {
+    border-top:1px solid var(--border); margin-top:1rem; padding-top:1rem;
+    font-family:var(--font-display); font-size:1.3rem; color:var(--white); font-weight:700; letter-spacing:-.5px;
+  }
+  .total-row.grand span:last-child { color:var(--accent2); }
+  .empty-cart {
+    text-align:center; padding:5rem 2rem;
+    color:var(--muted2); font-family:var(--font-display);
+  }
+  .empty-cart .empty-icon { font-size:4rem; margin-bottom:1rem; }
+
+  /* ─── CHECKOUT ─── */
+  .checkout-grid { display:grid; grid-template-columns:1fr 380px; gap:2rem; }
+  .form-section {
+    background:var(--surface); border:1px solid var(--border);
+    padding:2rem; border-radius:12px;
+  }
+  .form-title {
+    font-family:var(--font-display); font-size:1rem;
+    font-weight:700; color:var(--white);
+    margin-bottom:1.5rem; padding-bottom:.8rem;
+    border-bottom:1px solid var(--border); letter-spacing:-.3px;
+  }
+  .form-group { margin-bottom:1.2rem; }
+  .form-label {
+    display:block; font-family:var(--font-mono);
+    font-size:.65rem; letter-spacing:2px; text-transform:uppercase;
+    color:var(--accent2); margin-bottom:.5rem;
+  }
+  .form-input, .form-select, .form-textarea {
+    width:100%; background:rgba(255,255,255,0.04);
+    border:1px solid var(--border); color:var(--white);
+    padding:.85rem 1rem; font-family:var(--font-body);
+    font-size:.9rem; transition:.2s;
+    outline:none; border-radius:7px;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color:var(--accent2); box-shadow:0 0 0 3px rgba(124,58,237,0.15);
+  }
+  .form-input::placeholder { color:var(--muted2); }
+  .form-select option { background:var(--bg2); color:var(--white); }
+  .form-textarea { min-height:100px; resize:vertical; }
+  .order-summary-box {
+    background:var(--surface); border:1px solid var(--border);
+    padding:2rem; height:fit-content; position:sticky; top:90px; border-radius:12px;
+  }
+  .summary-item { display:flex; justify-content:space-between; padding:.6rem 0; border-bottom:1px solid rgba(255,255,255,.04); color:var(--muted); font-size:.85rem; }
+  .summary-total { display:flex; justify-content:space-between; padding:1rem 0 0; font-family:var(--font-display); color:var(--white); font-size:1.2rem; font-weight:700; letter-spacing:-.5px; }
+  .summary-total span:last-child { color:var(--accent2); }
+
+  .payment-methods { display:flex; flex-direction:column; gap:1rem; }
+  .payment-option {
+    border:1px solid var(--border);
+    padding:1.2rem; cursor:pointer;
+    transition:.2s; display:flex; align-items:center; gap:1rem; border-radius:8px;
+  }
+  .payment-option:hover, .payment-option.selected { border-color:var(--accent2); background:var(--accent-ultra); }
+  .payment-radio { width:18px; height:18px; border:2px solid var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .payment-radio.checked::after { content:''; width:8px; height:8px; border-radius:50%; background:var(--accent2); display:block; }
+  .payment-info { flex:1; }
+  .payment-name { font-family:var(--font-display); font-size:.9rem; font-weight:700; color:var(--white); }
+  .payment-detail { font-size:.75rem; color:var(--muted2); margin-top:.2rem; font-family:var(--font-mono); }
+  .payment-logo { width:50px; height:30px; display:flex; align-items:center; justify-content:center; }
+
+  .easypaisa-box {
+    background:var(--accent-ultra); border:1px solid var(--border);
+    padding:1.5rem; margin-top:1rem; display:none; border-radius:8px;
+  }
+  .easypaisa-box.show { display:block; }
+  .ep-number { font-family:var(--font-display); font-size:1.5rem; font-weight:800; color:var(--accent2); margin:.5rem 0; letter-spacing:-1px; }
+  .ep-name { color:var(--muted); font-size:.85rem; margin-bottom:.5rem; }
+  .ep-note { font-family:var(--font-mono); font-size:.68rem; color:var(--muted2); line-height:1.8; }
+
+  /* ─── ORDER CONFIRMATION ─── */
+  .confirm-center { text-align:center; max-width:700px; margin:0 auto; padding:120px 2rem 4rem; }
+  .confirm-icon {
+    width:100px; height:100px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:2.5rem; margin:0 auto 2rem;
+    animation:confirm-pop .5s ease both;
+    box-shadow: 0 0 50px rgba(124,58,237,0.4);
+  }
+  @keyframes confirm-pop { 0%{transform:scale(0);} 70%{transform:scale(1.1);} 100%{transform:scale(1);} }
+  .order-id {
+    font-family:var(--font-mono); font-size:.8rem;
+    color:var(--accent2); letter-spacing:3px; margin-bottom:1rem;
+    background:var(--accent-ultra); border:1px solid var(--border);
+    display:inline-block; padding:.5rem 1.5rem; border-radius:6px;
+  }
+  .confirm-title { font-family:var(--font-display); font-size:2.5rem; font-weight:800; margin-bottom:1rem; letter-spacing:-1px; }
+  .confirm-desc { color:var(--muted); line-height:1.8; margin-bottom:2rem; }
+  .order-details-box {
+    background:var(--surface); border:1px solid var(--border);
+    padding:2rem; text-align:left; margin:2rem auto;
+    max-width:500px; border-radius:12px;
+  }
+  .detail-row { display:flex; justify-content:space-between; padding:.6rem 0; border-bottom:1px solid rgba(255,255,255,.04); }
+  .detail-label { color:var(--muted2); font-size:.75rem; font-family:var(--font-mono); }
+  .detail-val { color:var(--white); font-size:.9rem; }
+
+  /* ─── AUTH ─── */
+  .auth-page {
+    min-height:100vh; display:flex; align-items:center;
+    justify-content:center; padding:90px 2rem 2rem;
+    position:relative; overflow:hidden;
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(124,58,237,0.15) 0%, transparent 70%), var(--bg);
+  }
+  .auth-bg {
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(124,58,237,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,58,237,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .auth-box {
+    background:var(--surface2); border:1px solid var(--border);
+    padding:3rem; width:100%; max-width:440px;
+    position:relative; z-index:1; border-radius:16px;
+    backdrop-filter: blur(20px);
+  }
+  .auth-box::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, var(--accent2), transparent);
+    border-radius:16px 16px 0 0;
+  }
+  .auth-title { font-family:var(--font-display); font-size:2rem; font-weight:800; margin-bottom:.3rem; letter-spacing:-1px; }
+  .auth-sub { color:var(--muted); font-size:.875rem; margin-bottom:2rem; }
+  .auth-switch { text-align:center; margin-top:1.5rem; color:var(--muted2); font-size:.85rem; }
+  .auth-switch a { color:var(--accent2); cursor:pointer; text-decoration:none; font-weight:600; }
+  .auth-switch a:hover { text-decoration:underline; }
+
+  /* ─── SERVICES PAGE ─── */
+  .services-hero {
+    padding:120px 2rem 3rem;
+    background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(124,58,237,0.12) 0%, transparent 70%);
+    text-align:center;
+  }
+  .filter-bar {
+    display:flex; flex-wrap:wrap; gap:.75rem;
+    justify-content:center; margin-bottom:3rem;
+  }
+  .filter-btn {
+    background:transparent; border:1px solid var(--border);
+    color:var(--muted); padding:.5rem 1.4rem;
+    font-family:var(--font-body); font-size:.8rem;
+    font-weight:500; cursor:pointer; transition:.2s; border-radius:100px;
+  }
+  .filter-btn:hover, .filter-btn.active { border-color:var(--accent2); color:var(--accent2); background:var(--accent-ultra); }
+
+  /* MARQUEE */
+  .marquee-strip {
+    background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+    overflow:hidden; padding:.6rem 0;
+  }
+  .marquee-inner {
+    display:flex; gap:4rem; width:max-content;
+    animation:marquee 20s linear infinite;
+  }
+  @keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+  .marquee-item { font-family:var(--font-mono); font-size:.72rem; letter-spacing:3px; white-space:nowrap; color:#fff; }
+
+  /* TOAST */
+  #toast {
+    position:fixed; bottom:2rem; right:2rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+    color:#fff;
+    padding:1rem 1.5rem;
+    font-family:var(--font-mono); font-size:.75rem; letter-spacing:.5px;
+    z-index:9999; border-radius:8px;
+    box-shadow: 0 8px 30px rgba(124,58,237,0.4);
+    transform:translateX(200%); transition:.4s;
+    max-width:300px;
+  }
+  #toast.show { transform:translateX(0); }
+
+  .red-divider {
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin:0 2rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background:var(--bg2); border-top:1px solid var(--border);
+    padding:3rem 2rem 1.5rem;
+  }
+  .footer-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:3rem; max-width:1100px; margin:0 auto 3rem; }
+  .footer-brand .nav-logo { margin-bottom:1rem; }
+  .footer-brand p { color:var(--muted2); font-size:.875rem; line-height:1.7; }
+  .footer-col-title { font-family:var(--font-display); font-size:.8rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--accent2); margin-bottom:1rem; }
+  .footer-links a { display:block; color:var(--muted2); font-size:.875rem; margin-bottom:.5rem; cursor:pointer; transition:.2s; text-decoration:none; }
+  .footer-links a:hover { color:var(--white); }
+  .footer-bottom { text-align:center; color:var(--muted2); font-size:.72rem; font-family:var(--font-mono); border-top:1px solid var(--border); padding-top:1.5rem; max-width:1100px; margin:0 auto; }
+
+  /* SECTION VARIANTS */
+  .bg-dark { background: var(--bg2); }
+  .bg-pattern {
+    background: var(--bg2);
+    background-image: radial-gradient(rgba(124,58,237,0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* TRACK STEPS */
+  .track-steps { display:flex; justify-content:center; gap:0; margin:2rem auto; max-width:600px; }
+  .track-step { flex:1; text-align:center; position:relative; }
+  .track-step::after {
+    content:''; position:absolute; top:20px; left:50%; width:100%;
+    height:1px; background:var(--border);
+  }
+  .track-step:last-child::after { display:none; }
+  .track-dot {
+    width:40px; height:40px; background:var(--bg3);
+    border:1px solid var(--border); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto .8rem; font-size:1rem; position:relative; z-index:1;
+  }
+  .track-label { font-size:.6rem; color:var(--muted2); letter-spacing:2px; font-family:var(--font-mono); }
+  .track-label.done { color:var(--accent2); }
+
+  /* WARNING / INFO */
+  .warning-ticker {
+    background: rgba(124,58,237,0.05);
+    border: 1px solid rgba(168,85,247,0.25);
+    border-left: 3px solid var(--accent2);
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden; border-radius:8px;
+  }
+  .warning-ticker::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:1px;
+    background: linear-gradient(90deg, var(--accent2), transparent);
+    animation: scanline 2s linear infinite;
+  }
+  @keyframes scanline { 0%{opacity:1;} 50%{opacity:.3;} 100%{opacity:1;} }
+  .warning-ticker-title {
+    font-family: var(--font-display); font-size:.75rem;
+    color: var(--accent2); letter-spacing:2px; text-transform:uppercase;
+    margin-bottom:.5rem; display:flex; align-items:center; gap:.5rem; font-weight:700;
+  }
+  .warning-ticker-blink { animation: blink 1s infinite; }
+  .warning-ticker ul { list-style:none; padding:0; }
+  .warning-ticker ul li {
+    color: var(--muted); font-size:.85rem; padding:.3rem 0;
+    display:flex; align-items:flex-start; gap:.6rem; line-height:1.5;
+    font-family: var(--font-body);
+  }
+  .warning-ticker ul li::before { content:'◆'; color:var(--accent2); font-size:.4rem; flex-shrink:0; margin-top:.4rem; }
+  .warning-ticker ul li strong { color:var(--accent2); }
+  .info-strip {
+    background: var(--accent-ultra);
+    border: 1px solid var(--border);
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.5rem;
+    display:flex; align-items:center; gap:1rem; flex-wrap:wrap; border-radius:8px;
+  }
+  .info-strip-icon { font-size:1.5rem; flex-shrink:0; }
+  .info-strip-text { font-size:.85rem; color:var(--muted); line-height:1.6; }
+  .info-strip-text strong { color:var(--accent2); }
+
+  .cart-moving-border {
+    position:relative;
+    background: var(--surface);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem; border-radius:8px;
+  }
+  .pulse-border {
+    animation: pulse-bdr 2s infinite;
+    border: 1px solid rgba(168,85,247,0.4) !important;
+  }
+  @keyframes pulse-bdr {
+    0%,100%{ box-shadow: 0 0 0 0 rgba(124,58,237,.4); }
+    50%{ box-shadow: 0 0 0 6px rgba(124,58,237,0); }
+  }
+
+  /* MOBILE MENU */
+  .mobile-menu {
+    position:fixed; top:70px; left:0; right:0;
+    background:rgba(7,7,26,.98); backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--border);
+    z-index:999; padding:1.5rem 2rem;
+    display:none; flex-direction:column; gap:1rem;
+  }
+  .mobile-menu.open { display:flex; }
+  .mobile-menu a { color:var(--muted); font-weight:500; letter-spacing:.5px; cursor:pointer; font-size:1rem; }
+  .mobile-menu a:hover { color:var(--accent2); }
+
+  /* 3D CUBE */
+  .card-3d-icon { width:50px; height:50px; margin-bottom:1rem; position:relative; }
+  .cube {
+    width:30px; height:30px;
+    transform-style:preserve-3d;
+    animation:spin3d 8s linear infinite;
+  }
+  @keyframes spin3d { 0%{transform:rotateX(0) rotateY(0);} 100%{transform:rotateX(360deg) rotateY(360deg);} }
+  .cube-face {
+    position:absolute; width:30px; height:30px;
+    border:1px solid rgba(168,85,247,0.5); background:rgba(124,58,237,0.05);
+  }
+  .cube-face.front  { transform:translateZ(15px); }
+  .cube-face.back   { transform:rotateY(180deg) translateZ(15px); }
+  .cube-face.right  { transform:rotateY(90deg) translateZ(15px); }
+  .cube-face.left   { transform:rotateY(-90deg) translateZ(15px); }
+  .cube-face.top    { transform:rotateX(90deg) translateZ(15px); }
+  .cube-face.bottom { transform:rotateX(-90deg) translateZ(15px); }
+
+  /* PARTICLES */
+  .particles { position:absolute; inset:0; pointer-events:none; z-index:1; }
+  .particle {
+    position:absolute; width:2px; height:2px;
+    background:var(--accent2); border-radius:50%;
+    animation:float-particle linear infinite;
+    opacity:0;
+  }
+  @keyframes float-particle {
+    0%{opacity:0;transform:translateY(100vh);} 10%{opacity:.6;} 90%{opacity:.3;} 100%{opacity:0;transform:translateY(-100px);}
+  }
+
+  .input-error { border-color: var(--accent2) !important; }
+  .error-msg { color:var(--accent2); font-size:.75rem; margin-top:.3rem; font-family:var(--font-mono); }
+  .success-msg { color:#34d399; font-size:.85rem; font-family:var(--font-mono); }
+
+  /* ANIMATIONS */
+  @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px);} to{opacity:1;transform:translateY(0);} }
+  @keyframes fadeInUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+
+  /* RESPONSIVE */
+  @media(max-width:900px) {
+    .nav-links { display:none; }
+    .hamburger { display:flex; }
+    .nav-actions .btn-nav { display:none; }
+    .checkout-grid { grid-template-columns:1fr; }
+    .hero-stats { gap:1.2rem; flex-wrap:wrap; justify-content:center; bottom:1rem; }
+    .stat-num { font-size:1.2rem; }
+    .services-grid { grid-template-columns:1fr; }
+    .packages-grid { grid-template-columns:1fr; }
+    .features-grid { grid-template-columns:1fr 1fr; }
+    .footer-grid { grid-template-columns:1fr 1fr; gap:2rem; }
+  }
+  @media(max-width:600px) {
+    section { padding:3rem 1rem; }
+    .page-wrapper { padding:85px 1rem 3rem; }
+    .auth-box { padding:2rem 1.2rem; }
+    nav { padding:0 1rem; height:60px; }
+    .mobile-menu { top:60px; }
+    .nav-logo { font-size:1.1rem; }
+    .cart-btn { padding:.4rem .8rem; font-size:.7rem; }
+    .hero-title { font-size:2.4rem; letter-spacing:-1px; }
+    .hero-sub { font-size:.9rem; }
+    .hero-btns { flex-direction:column; align-items:center; }
+    .btn-primary, .btn-outline { width:100%; max-width:280px; text-align:center; }
+    .hero-stats { gap:.8rem; padding:.6rem 1.2rem; }
+    .stat-num { font-size:1rem; }
+    .stat-label { font-size:.55rem; }
+    .section-title { font-size:1.6rem; }
+    .page-title { font-size:1.8rem; }
+    .cart-table { font-size:.8rem; display:block; overflow-x:auto; }
+    .cart-table th, .cart-table td { padding:.6rem .5rem; }
+    .checkout-grid { grid-template-columns:1fr; }
+    .order-summary-box { position:static; }
+    .features-grid { grid-template-columns:1fr; }
+    .footer-grid { grid-template-columns:1fr; }
+    .platforms-row { gap:.75rem; }
+    .platform-item { min-width:80px; padding:.8rem 1rem; }
+    .confirm-center { padding:80px 1rem 3rem; }
+    .highlight-banner { font-size:.72rem; padding:.7rem 1rem; }
+    .marquee-item { font-size:.62rem; letter-spacing:2px; }
+    .services-hero { padding:90px 1rem 2rem; }
+    .filter-btn { padding:.4rem 1rem; font-size:.72rem; }
+    .auth-title { font-size:1.5rem; }
+    .cart-table thead { display:none; }
+    .cart-table tr { display:block; border:1px solid var(--border); margin-bottom:1rem; padding:.8rem; border-radius:8px; }
+    .cart-table td { display:flex; justify-content:space-between; align-items:center; border:none; padding:.4rem 0; }
+    .cart-table td::before { content:attr(data-label); color:var(--accent2); font-family:var(--font-mono); font-size:.62rem; letter-spacing:1px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAVBAR ─── -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="logo-dot"></div>
+    GARDAZI
+  </div>
+  <div class="nav-links">
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('services')">Services</a>
+    <a onclick="showPage('packages')">Packages</a>
+    <a onclick="showPage('home'); scrollToSection('features')">Features</a>
+  </div>
+  <div class="nav-actions">
+    <button class="btn-nav" onclick="showPage('login')">Login</button>
+    <button class="btn-nav" onclick="showPage('register')" style="background:rgba(124,58,237,.1);border-color:rgba(168,85,247,.3);color:var(--accent2);">Register</button>
+    <button class="cart-btn" onclick="showPage('cart')">
+      🛒 Cart
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+  </div>
+  <div class="hamburger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a onclick="showPage('home');toggleMobile()">🏠 Home</a>
+  <a onclick="showPage('services');toggleMobile()">⚡ Services</a>
+  <a onclick="showPage('packages');toggleMobile()">📦 Packages</a>
+  <a onclick="showPage('cart');toggleMobile()">🛒 Cart</a>
+  <a onclick="showPage('login');toggleMobile()">🔑 Login</a>
+  <a onclick="showPage('register');toggleMobile()">✨ Register</a>
+</div>
+
+<div id="toast">✓ Added to cart!</div>
+
+<!-- ═══ PAGE: HOME ═══ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-grid"></div>
+    <div class="particles" id="particles"></div>
+    <div class="hero-content">
+      <div class="hero-badge">⚡ PAKISTAN'S #1 SMM PANEL — GARDAZI</div>
+      <h1 class="hero-title">
+        <span class="line1">GROW YOUR</span>
+        <span class="line2">SOCIAL MEDIA</span>
+      </h1>
+      <p class="hero-sub">GET REAL SOCAIL MEDIA SERVICES LIKES, FOLLOWERS, VIEWS AND OTHER OUR SERVICE ARE LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION AND DELIVERY WITHIN<br><strong>2 TO 3 HOURS</strong>. FAST, RELIABLE, AFFORDABLE </p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('services')">EXPLORE SERVICES</button>
+        <button class="btn-outline" onclick="showPage('packages')">VIEW PACKAGES</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">50K+</div><div class="stat-label">Orders</div></div>
+      <div class="stat"><div class="stat-num">10K+</div><div class="stat-label">Clients</div></div>
+      <div class="stat"><div class="stat-num">99%</div><div class="stat-label">Success</div></div>
+      <div class="stat"><div class="stat-num">2-3h</div><div class="stat-label">Delivery</div></div>
+    </div>
+  </div>
+
+  <!-- HIGHLIGHT BANNER -->
+  <div class="highlight-banner">
+    <span>⚡ <span class="blink">FLASH DEAL</span> — ORDER NOW & GET DELIVERY IN <strong>2-3 HOURS</strong> GUARANTEED! PAKISTAN'S FASTEST SMM SERVICE 🚀</span>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-inner">
+      <span class="marquee-item">📱 INSTAGRAM VIEWS</span>
+      <span class="marquee-item">👍 FACEBOOK LIKES</span>
+      <span class="marquee-item">▶️ YOUTUBE VIEWS</span>
+      <span class="marquee-item">🎵 TIKTOK FOLLOWERS</span>
+      <span class="marquee-item">🐦 TWITTER FOLLOWERS</span>
+      <span class="marquee-item">💬 COMMENTS</span>
+      <span class="marquee-item">⚡ 2-3 HOUR DELIVERY</span>
+      <span class="marquee-item">💳 EASYPAISA PAYMENT</span>
+      <span class="marquee-item">📱 INSTAGRAM VIEWS</span>
+      <span class="marquee-item">👍 FACEBOOK LIKES</span>
+      <span class="marquee-item">▶️ YOUTUBE VIEWS</span>
+      <span class="marquee-item">🎵 TIKTOK FOLLOWERS</span>
+      <span class="marquee-item">🐦 TWITTER FOLLOWERS</span>
+      <span class="marquee-item">💬 COMMENTS</span>
+      <span class="marquee-item">⚡ 2-3 HOUR DELIVERY</span>
+      <span class="marquee-item">💳 EASYPAISA PAYMENT</span>
+    </div>
+  </div>
+
+  <!-- PACKAGES ON HOME -->
+  <section id="featured-packages" class="bg-pattern">
+    <div class="section-header">
+      <div class="section-tag">// BEST DEALS</div>
+      <h2 class="section-title">Featured <span class="accent">Packages</span></h2>
+      <p class="section-desc">All-in-one bundles at unbeatable prices. Delivery in 2–3 hours.</p>
+    </div>
+    <div class="packages-grid">
+      <div class="pkg-card tilt-card">
+        <div class="card-glow"></div>
+        <div class="card-3d-icon">
+          <div class="cube">
+            <div class="cube-face front"></div><div class="cube-face back"></div>
+            <div class="cube-face right"></div><div class="cube-face left"></div>
+            <div class="cube-face top"></div><div class="cube-face bottom"></div>
+          </div>
+        </div>
+        <span class="card-tag">STARTER PACK</span>
+        <div class="card-name">TIKTOK PACK</div>
+        <ul class="card-includes">
+          <li>10,000 Video Views</li>
+          <li>100 Likes</li>
+          <li>50 Shares</li>
+          <li>Delivery: 2–3 Hours</li>
+          
+        </ul>
+        <div class="delivery-badge">⚡ 2-3 HOUR DELIVERY</div>
+        <div class="card-price">
+          <span class="old-price">Rs.380</span>
+          <span class="price-val">Rs.330</span>
+          <span class="price-unit">/ pack</span>
+        </div>
+        <button class="btn-card" onclick="addToCart({id:1,name:'Starter Boost',desc:'10K Views + 100 Likes',price:190})">ADD TO CART</button>
+      </div>
+      <div class="pkg-card featured tilt-card">
+        <div class="popular-badge">🔥 POPULAR</div>
+        <div class="card-glow"></div>
+        <div class="card-3d-icon">
+          <div class="cube">
+            <div class="cube-face front"></div><div class="cube-face back"></div>
+            <div class="cube-face right"></div><div class="cube-face left"></div>
+            <div class="cube-face top"></div><div class="cube-face bottom"></div>
+          </div>
+        </div>
+        <span class="card-tag">STARTER PACK</span>
+        <div class="card-name">INSTAGRAM PACK</div>
+        <ul class="card-includes">
+          <li>1000 Followers</li>
+          <li>100 Views</li>
+          <li>50 likes </li>
+          <li>Delivery: 2–3 Hours</li>
+          
+        </ul>
+        <div class="delivery-badge">⚡ 2-3 HOUR DELIVERY</div>
+        <div class="card-price">
+          <span class="old-price">Rs.300</span>
+          <span class="price-val">Rs.220</span>
+          <span class="price-unit">/ pack</span>
+        </div>
+        <button class="btn-card" onclick="addToCart({id:2,name:'Like Blaster',desc:'450 Likes',price:140})">ADD TO CART</button>
+      </div>
+      <div class="pkg-card tilt-card">
+        <div class="card-glow"></div>
+        <div class="card-3d-icon">
+          <div class="cube">
+            <div class="cube-face front"></div><div class="cube-face back"></div>
+            <div class="cube-face right"></div><div class="cube-face left"></div>
+            <div class="cube-face top"></div><div class="cube-face bottom"></div>
+          </div>
+        </div>
+        <span class="card-tag">STARTER PACK</span>
+        <div class="card-name">YOUTUBE PACK</div>
+        <ul class="card-includes">
+          <li>1000 Views</li>
+          <li>500 Likes</li>
+          <li>50 Shares</li>
+          <li>Delivery: 2–3 Hours</li>
+        </ul>
+        <div class="delivery-badge">⚡ 2-3 HOUR DELIVERY</div>
+        <div class="card-price">
+          <span class="old-price">Rs.1500</span>
+          <span class="price-val">Rs.1240</span>
+          <span class="price-unit">/ pack</span>
+        </div>
+        <button class="btn-card" onclick="addToCart({id:3,name:'Growth Bundle',desc:'50K Views + 500 Likes + 200 Followers',price:550})">ADD TO CART</button>
+      </div>
+      <div class="pkg-card tilt-card">
+        <div class="card-glow"></div>
+        <div class="card-3d-icon">
+          <div class="cube">
+            <div class="cube-face front"></div><div class="cube-face back"></div>
+            <div class="cube-face right"></div><div class="cube-face left"></div>
+            <div class="cube-face top"></div><div class="cube-face bottom"></div>
+          </div>
+        </div>
+        <span class="card-tag">MIX PACK</span>
+        <div class="card-name">INSTAGRAM / TIKTOK</div>
+        <ul class="card-includes">
+          <li>1,000 Tiktok Video Views</li>
+          <li>1,000 Instagram Vedio Views</li>
+          <li>50 Tiktok likes</li>
+          <li>50 Instagram likes</li>
+          <li>GIFT 🎁 100 Views For Both Instagram OR Tiktok</li>
+          <li>Delivery: 2–3 Hours</li>
+        </ul>
+        <div class="delivery-badge">⚡ 2-3 HOUR DELIVERY</div>
+        <div class="card-price">
+          <span class="old-price">Rs.120</span>
+          <span class="price-val">Rs.70</span>
+          <span class="price-unit">/ pack</span>
+        </div>
+        <button class="btn-card" onclick="addToCart({id:4,name:'Viral Explosion',desc:'100K Views + 1K Likes + 500 Followers + 50 Comments',price:999})">ADD TO CART</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES ON HOME -->
+  <section>
+    <div class="section-header">
+      <div class="section-tag">// INDIVIDUAL SERVICES</div>
+      <h2 class="section-title">All <span class="accent">Services</span></h2>
+      <p class="section-desc">Pick exactly what you need. Pay per unit. Fast delivery always.</p>
+    </div>
+    <div class="services-grid" id="home-services-grid"></div>
+  </section>
+
+  <!-- DIGITAL SERVICES / WEBBAZAAR -->
+  <section class="bg-dark">
+    <div class="section-header">
+      <div class="section-tag">// DIGITAL SERVICES</div>
+      <h2 class="section-title">Website Development, App Development, Graphics Design & SEO</h2>
+      <p class="section-desc">Need more than social media growth? Get professional Website Development, App Development, Graphics Design, SEO and many more services from our partner platform.</p>
+    </div>
+    <div style="max-width:700px;margin:2rem auto 0;text-align:center;padding:2.5rem;background:var(--surface);border:1px solid var(--border);border-radius:16px;">
+      <div style="font-family:var(--font-display);font-weight:700;font-size:1.3rem;margin-bottom:.75rem;">🌐 Visit WEBBAZAAR</div>
+      <p style="color:var(--muted);font-size:.9rem;line-height:1.7;margin-bottom:1.5rem;">Website Development • App Development • Graphics Design • SEO — and a lot more services available.</p>
+      <a href="https://WEBBAZAAR.run.place" target="_blank" rel="noopener" class="btn-primary" style="display:inline-block;text-decoration:none;">VISIT WEBBAZAAR.RUN.PLACE</a>
+    </div>
+  </section>
+
+  <!-- PLATFORMS -->
+  <section class="bg-dark">
+    <div class="section-header">
+      <div class="section-tag">// SUPPORTED PLATFORMS</div>
+      <h2 class="section-title">All <span class="accent">Platforms</span></h2>
+    </div>
+    <div class="platforms-row">
+      <div class="platform-item"><div class="platform-icon">📷</div><div class="platform-name">Instagram</div></div>
+      <div class="platform-item"><div class="platform-icon">▶️</div><div class="platform-name">YouTube</div></div>
+      <div class="platform-item"><div class="platform-icon">👍</div><div class="platform-name">Facebook</div></div>
+      <div class="platform-item"><div class="platform-icon">🎵</div><div class="platform-name">TikTok</div></div>
+      <div class="platform-item"><div class="platform-icon">🐦</div><div class="platform-name">Twitter</div></div>
+      <div class="platform-item"><div class="platform-icon">💼</div><div class="platform-name">LinkedIn</div></div>
+      <div class="platform-item"><div class="platform-icon">📌</div><div class="platform-name">Pinterest</div></div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="bg-pattern">
+    <div class="section-header">
+      <div class="section-tag">// WHY CHOOSE US</div>
+      <h2 class="section-title">Our <span class="accent">Advantages</span></h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-name">2-3 Hour Delivery</div>
+        <div class="feature-desc">Orders processed and delivered within 2 to 3 hours. No waiting around.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-name">100% Safe</div>
+        <div class="feature-desc">Our methods are safe for all accounts. No risk of bans or penalties.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">💳</div>
+        <div class="feature-name">EasyPaisa Payment</div>
+        <div class="feature-desc">Pay easily with EasyPaisa. Local payment solution for Pakistan.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📧</div>
+        <div class="feature-name">Email Confirmation</div>
+        <div class="feature-desc">Order details sent instantly to your email after placing an order.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-name">Real Engagement</div>
+        <div class="feature-desc">High-quality, real-looking engagement that makes a difference.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">💬</div>
+        <div class="feature-name">24/7 Support</div>
+        <div class="feature-desc">We're here around the clock to ensure your orders go through smoothly.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <div class="section-header">
+      <div class="section-tag">// PROCESS</div>
+      <h2 class="section-title">How It <span class="accent">Works</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;max-width:900px;margin:0 auto;">
+      <div style="text-align:center;padding:2rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;transition:.3s;" onmouseover="this.style.borderColor='rgba(168,85,247,.5)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-family:var(--font-display);font-size:3rem;color:var(--accent2);margin-bottom:.5rem;font-weight:800;letter-spacing:-2px;opacity:.5;">01</div>
+        <div style="font-family:var(--font-display);font-size:.95rem;font-weight:700;margin-bottom:.5rem;">CHOOSE SERVICE</div>
+        <div style="color:var(--muted);font-size:.8rem;line-height:1.6;">Browse our packages or individual services</div>
+      </div>
+      <div style="text-align:center;padding:2rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;transition:.3s;" onmouseover="this.style.borderColor='rgba(168,85,247,.5)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-family:var(--font-display);font-size:3rem;color:var(--accent2);margin-bottom:.5rem;font-weight:800;letter-spacing:-2px;opacity:.5;">02</div>
+        <div style="font-family:var(--font-display);font-size:.95rem;font-weight:700;margin-bottom:.5rem;">ADD TO CART</div>
+        <div style="color:var(--muted);font-size:.8rem;line-height:1.6;">Select your desired services and proceed</div>
+      </div>
+      <div style="text-align:center;padding:2rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;transition:.3s;" onmouseover="this.style.borderColor='rgba(168,85,247,.5)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-family:var(--font-display);font-size:3rem;color:var(--accent2);margin-bottom:.5rem;font-weight:800;letter-spacing:-2px;opacity:.5;">03</div>
+        <div style="font-family:var(--font-display);font-size:.95rem;font-weight:700;margin-bottom:.5rem;">PAY VIA EASYPAISA</div>
+        <div style="color:var(--muted);font-size:.8rem;line-height:1.6;">Send payment to 03184587211 (Shawal Ali)</div>
+      </div>
+      <div style="text-align:center;padding:2rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;transition:.3s;" onmouseover="this.style.borderColor='rgba(168,85,247,.5)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-family:var(--font-display);font-size:3rem;color:var(--accent2);margin-bottom:.5rem;font-weight:800;letter-spacing:-2px;opacity:.5;">04</div>
+        <div style="font-family:var(--font-display);font-size:.95rem;font-weight:700;margin-bottom:.5rem;">GET RESULTS</div>
+        <div style="color:var(--muted);font-size:.8rem;line-height:1.6;">Delivery in 2–3 hours. Check your account!</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="red-divider"></div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:1rem;">
+          <div class="logo-dot"></div>GARDAZI
+        </div>
+        <p>Pakistan's #1 Social Media Marketing panel. Boost your presence with real, fast results.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-links">
+          <a onclick="showPage('services')">Video Views</a>
+          <a onclick="showPage('services')">Likes</a>
+          <a onclick="showPage('services')">Followers</a>
+          <a onclick="showPage('services')">Comments</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Account</div>
+        <div class="footer-links">
+          <a onclick="showPage('login')">Login</a>
+          <a onclick="showPage('register')">Register</a>
+          <a onclick="showPage('cart')">My Cart</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Payment</div>
+        <div class="footer-links">
+          <a>EasyPaisa</a>
+          <a>Account: 03184587211</a>
+          <a>Name: Shawal Ali</a>
+          <a>Email: <span>support@gardazi.com</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2024 GARDAZI — support@gardazi.com — All orders delivered in 2-3 hours via EasyPaisa
+    </div>
+  </footer>
+</div>
+
+<!-- ═══ PAGE: SERVICES ═══ -->
+<div id="page-services" class="page">
+  <div class="services-hero">
+    <div class="section-tag">// ALL SERVICES</div>
+    <h1 class="section-title" style="margin-bottom:.5rem;">Individual <span class="accent">Services</span></h1>
+    <p style="color:var(--muted);margin-bottom:2rem;">Buy exactly what you need. All orders delivered in 2–3 hours.</p>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterServices('all',this)">All</button>
+      <button class="filter-btn" onclick="filterServices('views',this)">Views</button>
+      <button class="filter-btn" onclick="filterServices('likes',this)">Likes</button>
+      <button class="filter-btn" onclick="filterServices('followers',this)">Followers</button>
+      <button class="filter-btn" onclick="filterServices('comments',this)">Comments</button>
+      <button class="filter-btn" onclick="filterServices('Shares',this)">Shares</button>
+      <button class="filter-btn" onclick="filterServices('Saves',this)">Saves</button>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:0 2rem 6rem;">
+    <div class="services-grid" id="services-grid"></div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: PACKAGES ═══ -->
+<div id="page-packages" class="page">
+  <div class="services-hero">
+    <div class="section-tag">// BUNDLE DEALS</div>
+    <h1 class="section-title" style="margin-bottom:.5rem;">Service <span class="accent">Packages</span></h1>
+    <p style="color:var(--muted);margin-bottom:2rem;">Save more with our bundle deals. All delivered in 2–3 hours.</p>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:0 2rem 6rem;">
+    <div class="packages-grid" id="packages-grid"></div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: CART ═══ -->
+<div id="page-cart" class="page">
+  <div class="page-wrapper">
+    <h1 class="page-title">Shopping <span>Cart</span></h1>
+    <p class="page-subtitle">// Review your selected services before checkout</p>
+    <div id="cart-content"></div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: CHECKOUT ═══ -->
+<div id="page-checkout" class="page">
+  <div class="page-wrapper">
+    <h1 class="page-title">Check<span>out</span></h1>
+    <p class="page-subtitle">// Complete your order details</p>
+    <div class="checkout-grid">
+      <div>
+        <div class="form-section" style="margin-bottom:1.5rem;">
+          <div class="form-title">📱 Social Media Account</div>
+          <div class="form-group">
+            <label class="form-label">Platform</label>
+            <select class="form-select" id="co-platform">
+              <option value="">Select Platform</option>
+              <option>Instagram</option>
+              <option>YouTube</option>
+              <option>Facebook</option>
+              <option>TikTok</option>
+              <option>Twitter</option>
+              <option>LinkedIn</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Account Username or URL</label>
+            <input class="form-input" id="co-account" type="text" placeholder="e.g. @username or https://...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your Email (for order confirmation)</label>
+            <input class="form-input" id="co-email" type="email" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Order Notes (optional)</label>
+            <textarea class="form-textarea" id="co-notes" placeholder="Any special instructions..."></textarea>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-title">💳 Payment Method</div>
+          <div class="payment-methods">
+            <div class="payment-option selected" id="ep-option" onclick="selectPayment('easypaisa')">
+              <div class="payment-radio checked" id="ep-radio"></div>
+              <div class="payment-info">
+                <div class="payment-name">EasyPaisa</div>
+                <div class="payment-detail">Mobile wallet · Instant transfer</div>
+              </div>
+              <div class="payment-logo" style="font-size:1.5rem;">📲</div>
+            </div>
+          </div>
+          <div class="easypaisa-box show" id="ep-box">
+            <div style="font-family:var(--font-mono);font-size:.65rem;color:var(--accent2);letter-spacing:2px;margin-bottom:.5rem;">SEND PAYMENT TO:</div>
+            <div class="ep-number">03184587211</div>
+            <div class="ep-name">Account Name: <strong style="color:var(--white);">Shawal Ali</strong></div>
+            <div class="ep-note">
+              1. Open EasyPaisa app → Send Money<br>
+              2. Enter number: 03184587211 (Shawal Ali)<br>
+              3. Send the exact total amount<br>
+              4. Take screenshot and click Place Order<br>
+              5. Your order will be processed within 2-3 hours
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:1rem;">
+            <label class="form-label">EasyPaisa Transaction ID (after payment)</label>
+            <input class="form-input" id="co-txn" type="text" placeholder="Transaction ID / Screenshot reference">
+          </div>
+        </div>
+      </div>
+      <div class="order-summary-box">
+        <div style="font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:1.5rem;padding-bottom:.8rem;border-bottom:1px solid var(--border);">📋 Order Summary</div>
+        <div id="checkout-summary"></div>
+        <div class="form-group" style="margin-top:1rem;">
+          <label class="form-label">Promo Code</label>
+          <div style="display:flex;gap:.5rem;">
+            <input class="form-input" id="promo-input" type="text" placeholder="Enter promo code" style="flex:1;text-transform:uppercase;" onkeydown="if(event.key==='Enter'){event.preventDefault();applyPromo();}">
+            <button type="button" class="btn-nav" style="white-space:nowrap;" onclick="applyPromo()">APPLY</button>
+          </div>
+          <div id="promo-msg" style="display:none;font-family:var(--font-mono);font-size:.72rem;margin-top:.5rem;"></div>
+        </div>
+        <div class="total-row" id="promo-discount-row" style="display:none;color:var(--accent2);">
+          <span>Discount</span>
+          <span id="checkout-discount">-Rs.0</span>
+        </div>
+        <div class="summary-total">
+          <span>Total</span>
+          <span id="checkout-total">Rs.0</span>
+        </div>
+        <div style="margin-top:1rem;padding:1rem;background:var(--accent-ultra);border:1px solid var(--border);font-family:var(--font-mono);font-size:.65rem;color:var(--accent2);line-height:1.8;border-radius:8px;">
+          ⚡ DELIVERY: 2-3 HOURS<br>
+          📧 CONFIRMATION TO YOUR EMAIL<br>
+          💳 EASYPAISA ONLY
+        </div>
+        <button class="btn-primary" style="width:100%;margin-top:1.5rem;padding:1.2rem;" onclick="placeOrder()">
+          ✓ PLACE ORDER
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: CONFIRM ═══ -->
+<div id="page-confirm" class="page">
+  <div class="confirm-center">
+    <div class="confirm-icon">✓</div>
+    <div class="order-id" id="confirm-order-id">ORDER #000000</div>
+    <h1 class="confirm-title">Order <span style="background:linear-gradient(135deg,#a855f7,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Confirmed!</span></h1>
+    <p class="confirm-desc">
+      Your order has been placed successfully. A confirmation email has been sent to <strong id="confirm-email" style="color:var(--accent2);">your email</strong>.<br>
+      Your services will be delivered within <strong style="color:var(--accent2);">2–3 hours</strong>.
+    </p>
+    <div class="track-steps">
+      <div class="track-step">
+        <div class="track-dot" style="border-color:var(--accent2);background:var(--accent-ultra);">✓</div>
+        <div class="track-label done">ORDERED</div>
+      </div>
+      <div class="track-step">
+        <div class="track-dot" style="border-color:var(--accent2);background:var(--accent-ultra);">⚡</div>
+        <div class="track-label done">PROCESSING</div>
+      </div>
+      <div class="track-step">
+        <div class="track-dot" style="border-color:var(--accent2);animation:pulse 1.5s infinite;">🔄</div>
+        <div class="track-label" style="color:var(--accent2);">DELIVERING</div>
+      </div>
+      <div class="track-step">
+        <div class="track-dot">🎯</div>
+        <div class="track-label">COMPLETE</div>
+      </div>
+    </div>
+    <div class="order-details-box" id="confirm-details"></div>
+    <p style="margin-top:1.5rem;font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:var(--accent2);">🙏 Thank you for shopping with GARDAZI!</p>
+    <div style="margin-top:1rem;padding:1.5rem;background:var(--surface);border:1px solid var(--border);text-align:left;max-width:500px;margin-left:auto;margin-right:auto;border-radius:12px;">
+      <div style="font-family:var(--font-display);font-size:.75rem;color:var(--accent2);letter-spacing:2px;margin-bottom:.8rem;font-weight:700;">📧 EMAIL SENT TO ADMIN</div>
+      <p style="color:var(--muted);font-size:.85rem;line-height:1.7;">Your order details have been forwarded to our team. Your account will receive the services shortly after payment verification.</p>
+    </div>
+    <div style="display:flex;gap:1rem;justify-content:center;margin-top:2rem;flex-wrap:wrap;">
+      <button class="btn-primary" onclick="showPage('home')">← BACK TO HOME</button>
+      <button class="btn-outline" onclick="showPage('services')">ORDER MORE</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: LOGIN ═══ -->
+<div id="page-login" class="page">
+  <div class="auth-page">
+    <div class="auth-bg"></div>
+    <div class="auth-box">
+      <h2 class="auth-title">Welcome <span style="background:linear-gradient(135deg,#a855f7,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Back</span></h2>
+      <p class="auth-sub">Login to track your orders and manage your account</p>
+      <div class="form-group">
+        <label class="form-label">Email or Username</label>
+        <input class="form-input" id="login-email" type="text" placeholder="Enter email or username">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" id="login-pass" type="password" placeholder="Enter password">
+      </div>
+      <div id="login-error" style="display:none;" class="error-msg"></div>
+      <button class="btn-primary" style="width:100%;padding:1rem;margin-top:.5rem;" onclick="doLogin()">LOGIN</button>
+      <div class="auth-switch">Don't have an account? <a onclick="showPage('register')">Register here</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: REGISTER ═══ -->
+<div id="page-register" class="page">
+  <div class="auth-page">
+    <div class="auth-bg"></div>
+    <div class="auth-box">
+      <h2 class="auth-title">Create <span style="background:linear-gradient(135deg,#a855f7,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Account</span></h2>
+      <p class="auth-sub">Join GARDAZI and start growing today</p>
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input class="form-input" id="reg-username" type="text" placeholder="Choose a username">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="reg-email" type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" id="reg-pass" type="password" placeholder="Create password">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirm Password</label>
+        <input class="form-input" id="reg-pass2" type="password" placeholder="Repeat password">
+      </div>
+      <div id="reg-error" style="display:none;" class="error-msg"></div>
+      <div id="reg-success" style="display:none;" class="success-msg"></div>
+      <button class="btn-primary" style="width:100%;padding:1rem;margin-top:.5rem;" onclick="doRegister()">CREATE ACCOUNT</button>
+      <div class="auth-switch">Already have an account? <a onclick="showPage('login')">Login here</a></div>
+    </div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ─── DATA ─── */
+const ALL_SERVICES = [
+  {id:101,cat:'views',name:'50 Views',platform:' TIKTOK ',qty:'50',price:3,icon:'👁️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:102,cat:'views',name:'100 Views',platform:' TIKTOK ',qty:'100',price:7,icon:'👁️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:103,cat:'views',name:'1000 Views',platform:'TIKTOK',qty:'1000',price:30,icon:'👁️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:104,cat:'views',name:'10,000 Views',platform:'TIKTOK',qty:'10,000',price:230,icon:'👁️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:105,cat:'views',name:'50 Views',platform:'INSTAGRAM ',qty:'50',price:3,icon:'👁️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:106,cat:'views',name:'100 Views',platform:'INSTAGRAM',qty:'100',price:7,icon:'👁️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:107,cat:'views',name:'1000 Views',platform:'INSTAGRAM',qty:'1000',price:15,icon:'👁️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:108,cat:'views',name:'10,000 Views',platform:'INSTAGRAM',qty:'10,000',price:70,icon:'👁️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:109,cat:'views',name:'50 Views',platform:'YOUTUBE',qty:'50',price:20,icon:'👁️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:110,cat:'views',name:'100 Views',platform:'YOUTUBE',qty:'100',price:35,icon:'👁️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:111,cat:'views',name:'1000 Views',platform:'YOUTUBE',qty:'1000',price:330,icon:'👁️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:112,cat:'views',name:'10,000 Views',platform:'YOUTUBE',qty:'10,000',price:3100,icon:'👁️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:201,cat:'likes',name:'50 Likes',platform:'Instagram ',qty:'50',price:5,icon:'❤️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:202,cat:'likes',name:'100 Likes',platform:'Instagram',qty:'100',price:10,icon:'❤️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:203,cat:'likes',name:'1000 Likes',platform:'Instagram',qty:'1000',price:50,icon:'❤️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:204,cat:'likes',name:'50 Likes',platform:'Tiktok',qty:'50',price:5,icon:'❤️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:205,cat:'likes',name:'100 Likes',platform:'Tiktok',qty:'100',price:10,icon:'❤️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:206,cat:'likes',name:'1000 Likes',platform:'Tiktok',qty:'1000',price:50,icon:'❤️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:207,cat:'likes',name:'50 Likes',platform:'Youtube',qty:'50',price:55,icon:'❤️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:208,cat:'likes',name:'100 Likes',platform:'Youtube',qty:'100',price:120,icon:'❤️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:209,cat:'likes',name:'1000 Likes',platform:'Youtube',qty:'1000',price:990,icon:'❤️',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:301,cat:'followers',name:'50 Followers',platform:'Instagram',qty:'50',price:15,icon:'👥',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:302,cat:'followers',name:'100 Followers',platform:'Instagram',qty:'100',price:40,icon:'👥',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:303,cat:'followers',name:'1000 Followers',platform:'Instagram',qty:'1000',price:200,icon:'👥',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:304,cat:'followers',name:'10,000 Followers',platform:'Instagram',qty:'10,000',price:1600,icon:'👥',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:401,cat:'Saves',name:'50 Saves',platform:'Tiktok',qty:'50',price:5,icon:'⎙',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:402,cat:'Saves',name:'100 Saves',platform:'Tiktok',qty:'100',price:12,icon:'⎙',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:403,cat:'Saves',name:'1000 Saves',platform:'Tiktok',qty:'1000',price:20,icon:'⎙',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:404,cat:'Saves',name:'50 Saves',platform:'Instagram',qty:'50',price:3,icon:'⎙',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:405,cat:'Saves',name:'100 Saves',platform:'Instagram',qty:'100',price:8,icon:'⎙',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:406,cat:'Saves',name:'1000 Saves',platform:'Instagram',qty:'1000',price:30,icon:'⎙',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:501,cat:'Shares',name:'50 Shares',platform:'Tiktok',qty:'50',price:7,icon:'⌲',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:502,cat:'Shares',name:'100 Shares',platform:'Tiktok',qty:'100',price:15,icon:'⌲',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:503,cat:'Shares',name:'1000 Shares',platform:'Tiktok',qty:'1000',price:25,icon:'⌲',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:504,cat:'Shares',name:'50 Shares',platform:'Instagram',qty:'50',price:10,icon:'⌲',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:505,cat:'Shares',name:'100 Shares',platform:'Instagram',qty:'100',price:20,icon:'⌲',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:506,cat:'Shares',name:'1000 Shares',platform:'Instagram',qty:'1000',price:135,icon:'⌲',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:601,cat:'comments',name:'50 Comments',platform:'Instagram',qty:'50',price:20,icon:'💬',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:602,cat:'comments',name:'100 Comments',platform:'Instagram',qty:'100',price:45,icon:'💬',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:603,cat:'comments',name:'1000 Comments',platform:'Instagram',qty:'1000',price:270,icon:'💬',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:604,cat:'comments',name:'50 Comments',platform:'Youtube',qty:'50',price:280,icon:'💬',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:605,cat:'comments',name:'100 Comments',platform:'Youtube',qty:'100',price:500,icon:'💬',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:606,cat:'comments',name:'1000 Comments',platform:'Youtube',qty:'1000',price:4700,icon:'💬',desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+];
+
+const ALL_PACKAGES = [
+  {id:1,name:'STARTER PACK',tag:'TIKTOK',featured:false,includes:['10,000 Video Views','100 Likes','50 Shares','2-3 Hour Delivery'],oldPrice:380,price:330,desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:2,name:'STARTER PACK',tag:'INSTAGRAM',featured:true,includes:['1000 Followers','100 Views','50 Likes','2-3 Hour Delivery'],oldPrice:300,price:220,desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:3,name:'STARTER PACK',tag:'YOUTUBE',featured:false,includes:['1000 Video Views','500 Likes','50 Shares','2-3 Hour Delivery'],oldPrice:1500,price:1240,desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+  {id:4,name:'STARTER PACK',tag:'INSTAGRAM / TIKTOK',featured:false,includes:['1000 TikTok Video Views','1000 Instagram Vedio Views','50 Tiktok likes','50 Instagram Likes','GIFT 🎁 100 Views For Both Instagram Or Tiktok','2-3 Hour Delivery'],oldPrice:120,price:70,desc:'LIFE TIME GRANTED NON DROP OR ALSO USE FOR MONITIZATION'},
+];
+
+let cart = [];
+let users = [];
+let cartSeq = 1;
+
+/* ═══════════════════════════════════════════════════════════
+   📧 EMAILJS SETUP — set your Service ID & Template ID here
+   (Public Key is set separately in the <script> tag in <head>)
+   ═══════════════════════════════════════════════════════════ */
+const EMAILJS_SERVICE_ID  = 'service_e7gcorw';
+const EMAILJS_TEMPLATE_ID = 'template_3gvs8sg';
+
+/* ─── LOCAL PERSISTENCE (cart + accounts survive a page refresh) ───
+   Note: this storage only works once the file is hosted on a real
+   server/domain — it is disabled automatically inside sandboxed
+   preview iframes (like this chat's preview) where it isn't allowed. */
+function storageOK(){
+  try{ const k='__t'; localStorage.setItem(k,'1'); localStorage.removeItem(k); return true; }
+  catch(e){ return false; }
+}
+const HAS_STORAGE = storageOK();
+function saveCart(){ if(!HAS_STORAGE) return; try{ localStorage.setItem('fabuldr_cart', JSON.stringify(cart)); }catch(e){} }
+function loadCart(){
+  if(!HAS_STORAGE) return;
+  try{
+    const raw = localStorage.getItem('fabuldr_cart');
+    if(raw){ cart = JSON.parse(raw); cartSeq = cart.reduce((m,c)=>Math.max(m,(c.lineId||0)+1),1); }
+  }catch(e){ cart=[]; }
+}
+function saveUsers(){ if(!HAS_STORAGE) return; try{ localStorage.setItem('fabuldr_users', JSON.stringify(users)); }catch(e){} }
+function loadUsers(){
+  if(!HAS_STORAGE) return;
+  try{ const raw = localStorage.getItem('fabuldr_users'); if(raw) users = JSON.parse(raw); }catch(e){ users=[]; }
+}
+loadCart(); loadUsers();
+
+function renderServiceCard(s) {
+  return `
+    <div class="service-card tilt-card" data-cat="${s.cat}">
+      <div class="card-glow"></div>
+      <span class="card-tag">${s.cat.toUpperCase()} // ${s.platform}</span>
+      <div style="font-size:2.5rem;margin-bottom:.5rem;">${s.icon}</div>
+      <div class="card-name">${s.name}</div>
+      <div class="card-desc">${s.desc}</div>
+      <div class="delivery-badge">⚡ 2-3 HOUR DELIVERY</div>
+      <div class="card-price">
+        <span class="price-val">Rs.${s.price}</span>
+        <span class="price-unit">/ ${s.qty}</span>
+      </div>
+      <button class="btn-card" onclick="addToCart({id:${s.id},name:'${s.name}',desc:'${s.qty} ${s.cat}',price:${s.price}})">ADD TO CART</button>
+    </div>`;
+}
+
+function renderPackageCard(p) {
+  const inc = p.includes.map(i=>`<li>${i}</li>`).join('');
+  return `
+    <div class="pkg-card tilt-card ${p.featured?'featured':''}">
+      ${p.featured?'<div class="popular-badge">🔥 POPULAR</div>':''}
+      <div class="card-glow"></div>
+      <div class="card-3d-icon">
+        <div class="cube">
+          <div class="cube-face front"></div><div class="cube-face back"></div>
+          <div class="cube-face right"></div><div class="cube-face left"></div>
+          <div class="cube-face top"></div><div class="cube-face bottom"></div>
+        </div>
+      </div>
+      <span class="card-tag">${p.tag} PACKAGE</span>
+      <div class="card-name">${p.name}</div>
+      <div class="card-desc">${p.desc}</div>
+      <ul class="card-includes">${inc}</ul>
+      <div class="delivery-badge">⚡ 2-3 HOUR DELIVERY</div>
+      <div class="card-price">
+        <span class="old-price">Rs.${p.oldPrice}</span>
+        <span class="price-val">Rs.${p.price}</span>
+        <span class="price-unit">/ pack</span>
+      </div>
+      <button class="btn-card" onclick="addToCart({id:${p.id},name:'${p.name}',desc:'Package',price:${p.price}})">ADD TO CART</button>
+    </div>`;
+}
+
+let gridsBuilt = false;
+function initGrids() {
+  // The catalog data never changes at runtime, so only build these grids
+  // once instead of re-rendering ~40 cards every single time the person
+  // opens the Services/Packages page — that repeated work was a real
+  // source of the lag/jank on navigation.
+  if(gridsBuilt) return;
+  const hg = document.getElementById('home-services-grid');
+  if(hg) hg.innerHTML = ALL_SERVICES.map(renderServiceCard).join('');
+  const sg = document.getElementById('services-grid');
+  if(sg) sg.innerHTML = ALL_SERVICES.map(renderServiceCard).join('');
+  const pg = document.getElementById('packages-grid');
+  if(pg) pg.innerHTML = ALL_PACKAGES.map(renderPackageCard).join('');
+  gridsBuilt = true;
+}
+
+function filterServices(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#services-grid .service-card').forEach(c=>{
+    c.style.display = (cat==='all'||c.dataset.cat===cat)?'block':'none';
+  });
+}
+
+function addToCart(item) {
+  // Match by id AND desc, since different items (e.g. a homepage bundle vs
+  // the same bundle on the Packages page) can reuse the same numeric id.
+  const existing = cart.find(c=>c.id===item.id&&c.desc===item.desc);
+  if(existing){ existing.qty++; }
+  else{ cart.push({...item, qty:1, lineId: cartSeq++}); }
+  saveCart();
+  updateCartCount();
+  showToast(`✓ ${item.name} added to cart!`);
+}
+
+function updateCartCount() {
+  document.getElementById('cart-count').textContent = cart.reduce((a,c)=>a+c.qty,0);
+}
+
+// removeFromCart/changeQty use the unique lineId (not the shared product id),
+// so removing or changing one cart row never touches a different row that
+// happens to share the same product id.
+function removeFromCart(lineId) { cart=cart.filter(c=>c.lineId!==lineId); saveCart(); updateCartCount(); renderCart(); }
+
+function changeQty(lineId, delta) {
+  const item=cart.find(c=>c.lineId===lineId);
+  if(!item) return;
+  item.qty+=delta;
+  if(item.qty<=0) cart=cart.filter(c=>c.lineId!==lineId);
+  saveCart(); updateCartCount(); renderCart();
+}
+
+function cartTotal() { return cart.reduce((a,c)=>a+c.price*c.qty,0); }
+
+/* ─── PROMO CODES ───
+   Add/remove codes here. type:'percent' takes value as a % off the
+   subtotal, type:'flat' takes value as a flat Rs. amount off. */
+const PROMO_CODES = {
+  'FABU10':   { type:'percent', value:10 },
+  'WELCOME50':{ type:'flat',    value:50 },
+  'GARDAZI20':{ type:'percent', value:20 },
+};
+let appliedPromo = null; // { code, amount }
+
+function discountAmount() {
+  if(!appliedPromo) return 0;
+  return Math.min(appliedPromo.amount, cartTotal());
+}
+function finalTotal() { return Math.max(0, cartTotal() - discountAmount()); }
+
+function applyPromo() {
+  const inputEl = document.getElementById('promo-input');
+  const msgEl = document.getElementById('promo-msg');
+  const code = (inputEl.value || '').trim().toUpperCase();
+  msgEl.style.display = 'block';
+  if(!code){
+    appliedPromo = null;
+    msgEl.style.color = '#f87171';
+    msgEl.textContent = '❌ Please enter a promo code.';
+    renderCheckoutTotals();
+    return;
+  }
+  const promo = PROMO_CODES[code];
+  if(!promo){
+    appliedPromo = null;
+    msgEl.style.color = '#f87171';
+    msgEl.textContent = '❌ Invalid or expired promo code.';
+    renderCheckoutTotals();
+    return;
+  }
+  const amount = promo.type === 'percent' ? Math.round(cartTotal() * promo.value / 100) : promo.value;
+  appliedPromo = { code, amount };
+  msgEl.style.color = '#34d399';
+  msgEl.textContent = `✓ Promo "${code}" applied — Rs.${amount} off!`;
+  renderCheckoutTotals();
+}
+
+function renderCheckoutTotals() {
+  const discRow = document.getElementById('promo-discount-row');
+  const discEl = document.getElementById('checkout-discount');
+  const disc = discountAmount();
+  if(disc > 0){
+    discRow.style.display = 'flex';
+    discEl.textContent = `-Rs.${disc}`;
+  } else {
+    discRow.style.display = 'none';
+  }
+  document.getElementById('checkout-total').textContent = `Rs.${finalTotal()}`;
+}
+
+function renderCart() {
+  const el = document.getElementById('cart-content');
+  if(cart.length===0) {
+    el.innerHTML=`<div class="empty-cart"><div class="empty-icon">🛒</div><div style="font-size:1.2rem;margin-bottom:1rem;">Your cart is empty</div><button class="btn-primary" onclick="showPage('services')">BROWSE SERVICES</button></div>`;
+    return;
+  }
+  const warningBox=`
+  <div class="warning-ticker pulse-border" style="margin-bottom:1.5rem;">
+    <div class="warning-ticker-title"><span class="warning-ticker-blink">⚠️</span> Important — Please Read Before Checkout</div>
+    <ul>
+      <li><strong>Provide the correct account URL/username.</strong> Incorrect account details will result in a failed order, and no refund will be issued.</li>
+      <li><strong>Select the correct platform.</strong> An order placed for Instagram cannot be applied to YouTube or any other platform.</li>
+      <li><strong>Complete your EasyPaisa payment first,</strong> then enter the Transaction ID at checkout.</li>
+      <li><strong>Double-check your email address.</strong> Your order confirmation will be sent to this email.</li>
+      <li><strong>Delivery time is 2–3 hours,</strong> starting once your payment has been verified.</li>
+    </ul>
+  </div>`;
+  const rows=cart.map(c=>`
+    <tr>
+      <td data-label="SERVICE"><strong style="color:var(--white);">${c.name}</strong><br><small style="color:var(--muted2);">${c.desc}</small></td>
+      <td data-label="QTY"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty(${c.lineId},-1)">−</button><span class="qty-num">${c.qty}</span><button class="qty-btn" onclick="changeQty(${c.lineId},1)">+</button></div></td>
+      <td data-label="UNIT" style="color:var(--accent2);font-family:var(--font-display);">Rs.${c.price}</td>
+      <td data-label="TOTAL" style="color:var(--white);font-family:var(--font-display);">Rs.${c.price*c.qty}</td>
+      <td data-label="REMOVE"><button class="remove-btn" onclick="removeFromCart(${c.lineId})">✕ Remove</button></td>
+    </tr>`).join('');
+  el.innerHTML=`
+    ${warningBox}
+    <table class="cart-table">
+      <thead><tr><th>Service</th><th>Qty</th><th>Unit Price</th><th>Total</th><th>Action</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div class="cart-total">
+      <div class="total-row"><span>Subtotal</span><span>Rs.${cartTotal()}</span></div>
+      <div class="total-row"><span>Delivery</span><span style="color:#34d399;">FREE</span></div>
+      <div class="total-row"><span>Est. Delivery</span><span style="color:var(--accent2);">2-3 Hours</span></div>
+      <div class="total-row grand"><span>TOTAL</span><span>Rs.${cartTotal()}</span></div>
+      <button class="btn-primary" style="width:100%;margin-top:1.5rem;padding:1rem;" onclick="gotoCheckout()">PROCEED TO CHECKOUT →</button>
+    </div>`;
+}
+
+function gotoCheckout() {
+  if(cart.length===0){showToast('Cart is empty!');return;}
+  appliedPromo = null;
+  renderCheckoutSummary(); showPage('checkout');
+}
+
+function renderCheckoutSummary() {
+  document.getElementById('checkout-summary').innerHTML=cart.map(c=>`<div class="summary-item"><span>${c.name} x${c.qty}</span><span>Rs.${c.price*c.qty}</span></div>`).join('');
+  const promoInput=document.getElementById('promo-input');
+  const promoMsg=document.getElementById('promo-msg');
+  if(promoInput) promoInput.value='';
+  if(promoMsg) promoMsg.style.display='none';
+  renderCheckoutTotals();
+}
+
+function selectPayment(method) {
+  document.getElementById('ep-option').classList.toggle('selected',method==='easypaisa');
+  document.getElementById('ep-radio').classList.toggle('checked',method==='easypaisa');
+  document.getElementById('ep-box').classList.toggle('show',method==='easypaisa');
+}
+
+function placeOrder() {
+  const platform=document.getElementById('co-platform').value;
+  const account=document.getElementById('co-account').value.trim();
+  const email=document.getElementById('co-email').value.trim();
+  const txn=document.getElementById('co-txn').value.trim();
+  const notes=document.getElementById('co-notes').value.trim();
+  if(!platform){showToast('Please select a platform!');return;}
+  if(!account){showToast('Please enter your account username/URL!');return;}
+  if(!email||!email.includes('@')){showToast('Please enter a valid email!');return;}
+  if(!txn){showToast('Please enter EasyPaisa Transaction ID!');return;}
+  if(cart.length===0){showToast('Cart is empty!');return;}
+  const orderNum='SMM'+Date.now().toString().slice(-6);
+  const total=finalTotal();
+  const itemsList=cart.map(c=>`${c.name} x${c.qty} = Rs.${c.price*c.qty}`).join('\n');
+  const promoNote = appliedPromo ? ` | Promo: ${appliedPromo.code} (-Rs.${discountAmount()})` : '';
+  const placeBtn=document.querySelector('#page-checkout .btn-primary[onclick="placeOrder()"]');
+  if(placeBtn){placeBtn.textContent='⏳ SENDING ORDER...';placeBtn.disabled=true;}
+  const templateParams={order_id:orderNum,customer_email:email,platform,account,txn_id:txn,notes:(notes||'None')+promoNote,items:itemsList,total};
+  emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,templateParams)
+    .then(()=>{
+      document.getElementById('confirm-order-id').textContent=`ORDER #${orderNum}`;
+      document.getElementById('confirm-email').textContent=email;
+      document.getElementById('confirm-details').innerHTML=`
+        <div class="detail-row"><span class="detail-label">ORDER ID</span><span class="detail-val" style="color:var(--accent2);font-family:var(--font-mono);">#${orderNum}</span></div>
+        <div class="detail-row"><span class="detail-label">PLATFORM</span><span class="detail-val">${platform}</span></div>
+        <div class="detail-row"><span class="detail-label">ACCOUNT</span><span class="detail-val">${account}</span></div>
+        <div class="detail-row"><span class="detail-label">ITEMS</span><span class="detail-val">${itemsList.replace(/\n/g,'<br>')}</span></div>
+        <div class="detail-row"><span class="detail-label">TOTAL PAID</span><span class="detail-val" style="color:var(--accent2);font-family:var(--font-display);">Rs.${total}</span></div>
+        <div class="detail-row"><span class="detail-label">PAYMENT</span><span class="detail-val">EasyPaisa • ${txn}</span></div>
+        <div class="detail-row"><span class="detail-label">DELIVERY</span><span class="detail-val" style="color:var(--accent2);">2-3 Hours</span></div>
+        <div class="detail-row"><span class="detail-label">EMAIL</span><span class="detail-val">${email}</span></div>`;
+      cart=[]; saveCart(); updateCartCount(); appliedPromo=null; showPage('confirm');
+    })
+    .catch(err=>{
+      console.error('EmailJS Error:',err);
+      showToast('❌ Email send failed! Please retry.');
+      if(placeBtn){placeBtn.textContent='✓ PLACE ORDER';placeBtn.disabled=false;}
+    });
+}
+
+function doLogin() {
+  const em=document.getElementById('login-email').value.trim();
+  const pw=document.getElementById('login-pass').value;
+  const errEl=document.getElementById('login-error');
+  errEl.style.display='none';
+  if(!em||!pw){errEl.textContent='Please fill all fields.';errEl.style.display='block';return;}
+  const user=users.find(u=>u.email===em&&u.password===pw);
+  if(!user){errEl.textContent='Invalid credentials. Please try again.';errEl.style.display='block';return;}
+  showToast(`Welcome back, ${user.username}!`); showPage('home');
+}
+
+function doRegister() {
+  const username=document.getElementById('reg-username').value.trim();
+  const email=document.getElementById('reg-email').value.trim();
+  const pass=document.getElementById('reg-pass').value;
+  const pass2=document.getElementById('reg-pass2').value;
+  const errEl=document.getElementById('reg-error');
+  const sucEl=document.getElementById('reg-success');
+  errEl.style.display='none'; sucEl.style.display='none';
+  if(!username||!email||!pass||!pass2){errEl.textContent='Please fill all fields.';errEl.style.display='block';return;}
+  if(!email.includes('@')){errEl.textContent='Please enter a valid email.';errEl.style.display='block';return;}
+  if(pass!==pass2){errEl.textContent='Passwords do not match.';errEl.style.display='block';return;}
+  if(pass.length<6){errEl.textContent='Password must be at least 6 characters.';errEl.style.display='block';return;}
+  if(users.find(u=>u.email===email)){errEl.textContent='This email is already registered.';errEl.style.display='block';return;}
+  users.push({username,email,password:pass});
+  saveUsers();
+  emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,{order_id:'REG-'+Date.now().toString().slice(-6),customer_email:email,platform:'N/A - Registration',account:username,txn_id:'N/A',notes:'New user registration',items:`Username: ${username}\nEmail: ${email}`,total:'0'});
+  sucEl.textContent=`✓ Account created! Welcome, ${username}! You can now login.`;
+  sucEl.style.display='block';
+  setTimeout(()=>showPage('login'),2000);
+}
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(`page-${name}`).classList.add('active');
+  window.scrollTo(0,0);
+  if(name==='cart') renderCart();
+  if(name==='services'||name==='packages') initGrids();
+}
+
+function scrollToSection(id) {
+  setTimeout(()=>{const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});},100);
+}
+
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+function toggleMobile() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+
+/* THREE.JS HERO */
+function initThreeJS() {
+  const canvas=document.getElementById('hero-canvas');
+  if(!canvas || typeof THREE==='undefined') return;
+
+  // Respect "reduce motion" and skip the heaviest bits on phones/tablets —
+  // a spinning wireframe torus knot + 400 particles rendered at up to 2x
+  // pixel density is expensive, and was a big contributor to the lag on
+  // mobile in particular.
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const partCount = isTouch ? 120 : 400;
+
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:!isTouch});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,isTouch?1.5:2));
+  renderer.setSize(canvas.parentElement.offsetWidth,canvas.parentElement.offsetHeight);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(75,canvas.parentElement.offsetWidth/canvas.parentElement.offsetHeight,0.1,1000);
+  camera.position.z=5;
+  const torusGeo=new THREE.TorusGeometry(2,.6,20,80);
+  const torusMat=new THREE.MeshBasicMaterial({color:0x7c3aed,wireframe:true,transparent:true,opacity:.2});
+  const torus=new THREE.Mesh(torusGeo,torusMat);
+  scene.add(torus);
+  const knotGeo=new THREE.TorusKnotGeometry(1,.3,80,16);
+  const knotMat=new THREE.MeshBasicMaterial({color:0xa855f7,wireframe:true,transparent:true,opacity:.15});
+  const knot=new THREE.Mesh(knotGeo,knotMat);
+  scene.add(knot);
+  const icoGeo=new THREE.IcosahedronGeometry(1.2,1);
+  const icoMat=new THREE.MeshBasicMaterial({color:0xc084fc,wireframe:true,transparent:true,opacity:.12});
+  const ico=new THREE.Mesh(icoGeo,icoMat);
+  ico.position.set(3,1,0);
+  scene.add(ico);
+  const positions=new Float32Array(partCount*3);
+  for(let i=0;i<partCount*3;i++) positions[i]=(Math.random()-.5)*20;
+  const partGeo=new THREE.BufferGeometry();
+  partGeo.setAttribute('position',new THREE.BufferAttribute(positions,3));
+  const partMat=new THREE.PointsMaterial({color:0xa855f7,size:.06,transparent:true,opacity:.7});
+  const points=new THREE.Points(partGeo,partMat);
+  scene.add(points);
+  let mouseX=0,mouseY=0;
+  document.addEventListener('mousemove',e=>{
+    mouseX=(e.clientX/window.innerWidth-.5)*.5;
+    mouseY=(e.clientY/window.innerHeight-.5)*.5;
+  },{passive:true});
+
+  // Pause rendering completely once the hero has scrolled off-screen, so
+  // the GPU/CPU aren't kept busy animating something invisible while you
+  // browse the rest of the site.
+  let heroVisible=true;
+  const heroEl=canvas.parentElement;
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(entries=>{ heroVisible=entries[0].isIntersecting; },{threshold:0}).observe(heroEl);
+  }
+
+  let rafId=null;
+  function animate() {
+    rafId=requestAnimationFrame(animate);
+    if(!heroVisible) return;
+    const t=Date.now()*.001;
+    if(!reduceMotion){
+      torus.rotation.x=t*.3+mouseY;
+      torus.rotation.y=t*.2+mouseX;
+      knot.rotation.x=t*.4;
+      knot.rotation.z=t*.3;
+      ico.rotation.x=t*.5;
+      ico.rotation.y=t*.4;
+      points.rotation.y=t*.05;
+    }
+    renderer.render(scene,camera);
+  }
+  animate();
+  window.addEventListener('resize',()=>{
+    const w=canvas.parentElement.offsetWidth,h=canvas.parentElement.offsetHeight;
+    camera.aspect=w/h; camera.updateProjectionMatrix();
+    renderer.setSize(w,h);
+  });
+}
+
+function createParticles() {
+  const container=document.getElementById('particles');
+  if(!container) return;
+  for(let i=0;i<30;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    p.style.cssText=`left:${Math.random()*100}%;animation-duration:${4+Math.random()*8}s;animation-delay:${Math.random()*8}s;width:${1+Math.random()*3}px;height:${1+Math.random()*3}px;`;
+    container.appendChild(p);
+  }
+}
+
+function initTiltCards() {
+  // Skip entirely on touch devices — there's no hover/mouse there anyway,
+  // so this used to run for nothing on every phone.
+  if(window.matchMedia('(pointer: coarse)').matches) return;
+
+  let rafPending=false, lastX=0, lastY=0;
+
+  function applyTilt(){
+    rafPending=false;
+    // getBoundingClientRect() on every card forces the browser to
+    // recompute layout. Doing that on every raw mousemove event (which
+    // can fire 100+ times/sec) for every card on the page was the main
+    // cause of the stutter/lag. Batching it to once per animation frame,
+    // and only for cards near the cursor, fixes that.
+    document.querySelectorAll('.tilt-card').forEach(card=>{
+      const rect=card.getBoundingClientRect();
+      if(lastX < rect.left-100 || lastX > rect.right+100 || lastY < rect.top-100 || lastY > rect.bottom+100){
+        if(card.style.transform) card.style.transform='';
+        return;
+      }
+      const cx=rect.left+rect.width/2, cy=rect.top+rect.height/2;
+      const dx=(lastX-cx)/rect.width*20, dy=(lastY-cy)/rect.height*20;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      card.style.transform = dist<20 ? `perspective(600px) rotateX(${-dy}deg) rotateY(${dx}deg) translateY(-6px)` : '';
+    });
+  }
+
+  document.addEventListener('mousemove', e=>{
+    lastX=e.clientX; lastY=e.clientY;
+    if(!rafPending){ rafPending=true; requestAnimationFrame(applyTilt); }
+  }, {passive:true});
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  initGrids(); initThreeJS(); createParticles(); initTiltCards(); updateCartCount();
+});
+</script>
+</body>
+</html>
